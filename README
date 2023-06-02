@@ -1,0 +1,44 @@
+MANUAL DE INSTALACION
+Requisitos previos
+•	Python 3.5 o superior
+•	Pip (administrador de paquetes de Python)
+•	Git (opcional)
+Configuración inicial
+1.	Clone el repositorio de GitHub del proyecto utilizando Git o descargando el archivo ZIP.
+2.	Cree un entorno virtual utilizando virtualenv o venv:
+python3 -m venv myenv 
+3.	Active el entorno virtual:
+source myenv/bin/activate 
+4.	Instale las dependencias del proyecto con Pip:
+pip install -r requirements.txt 
+5.	Configure la base de datos en settings.py. Por defecto, el proyecto utiliza una base de datos SQLite. Si desea utilizar una base de datos diferente, deberá actualizar esta configuración. A continuación se muestra un ejemplo de configuración:
+
+DATABASES = { 
+'default': { 
+'ENGINE': 'django.db.backends.mysql', 
+'NAME': 'database_name', 
+'USER': 'database_user', 
+'PASSWORD': 'database_password', 
+'HOST': '127.0.0.1', 
+'PORT': '3306', 
+} 
+} 
+
+Ejecución del proyecto
+
+1.	Asegúrese de que el entorno virtual esté activado:
+source myenv/bin/activate 
+2.	Cree las tablas en la base de datos:
+python manage.py migrate 
+3.	Cree un superusuario para acceder al panel de administración:
+python manage.py createsuperuser 
+4.	Ejecute el servidor de desarrollo:
+python manage.py runserver 
+5.	Abra un navegador web y vaya a http://localhost:8000 para ver el proyecto en ejecución.
+
+
+Información adicional
+
+•	La página de administración se encuentra en http://localhost:8000/admin y se puede acceder con las credenciales del superusuario creado en el paso 3.
+•	Para actualizar la base de datos con los cambios de modelos, utilice el comando "python manage.py makemigrations" seguido de "python manage.py migrate".
+•	Si está utilizando una base de datos diferente a SQLite, es posible que deba instalar el controlador correspondiente para Python (por ejemplo, para MySQL: pip install mysqlclient).
