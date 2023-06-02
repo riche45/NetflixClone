@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Series List - Netflix
+{% endblock title %}
+
+{% block content %}
+    {% include 'partials/navbar.html' %}
+
+    <section class="bg-primary_black min-h-screen w-full">
+        <div class="container mx-auto px-4 py-16">
+            <h2 class="text-gray-200 text-2xl font-medium mb-6">Series List</h2>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8">
+                {% for series in series %}
+                    <div class="relative">
+                        <a href="{% url 'core:series_detail' pk=series.pk %}">
+                            <img class="w-full h-full rounded-md object-cover" src="{{ series.image.url }}" alt="{{ series.title }}" />
+                            <div class="absolute bottom-0 left-0 w-full h-full rounded-md bg-gradient-to-t from-black to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 w-full h-full p-4">
+                                <h3 class="text-white text-lg font-medium mb-2">{{ series.title }}</h3>
+                                <p class="text-gray-200 text-sm">{{ series.seasons }} seasons, {{ series.episodes }} episodes</p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock content %}

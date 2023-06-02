@@ -1,0 +1,13 @@
+django~=4.2
+django-allauth
+gunicorn
+whitenoise
+dj-database-url==2.0.0
+psycopg2
+pillow
+
+pandas==2.0.1
+matplotlib~=3.7.1
+plotly~=5.14.1
+
+django-autoslug~=1.9.9

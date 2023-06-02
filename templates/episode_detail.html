@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>{{ episode.title }}</h1>
+    <div class="row">
+      <div class="col-md-8">
+        <video src="{{ episode.video.url }}" controls width="100%"></video>
+      </div>
+      <div class="col-md-4">
+        <h4>Description</h4>
+        <p>{{ episode.description }}</p>
+        <h4>Duration</h4>
+        <p>{{ episode.duration }} minutes</p>
+        <h4>Series</h4>
+        <p>{{ episode.season.series.title }}</p>
+        <h4>Season</h4>
+        <p>{{ episode.season.number }}</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

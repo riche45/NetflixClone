@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Netflix - Series Create
+{% endblock title %}
+
+{% block content %}
+    {% include 'partials/navbar.html' %}
+        <section class='bg-primary_black min-h-screen py-20 md:py-32 flex-col flex items-center' style='background-image:url("{% static \"background_netflix.jpg\" %}")'>
+        <div class="flex flex-wrap justify-center  w-10/12  md:w-6/12">
+            <form method='POST' enctype="multipart/form-data" class="w-full md:w-8/12 bg-gray-900 p-5 rounded-lg">
+                {% csrf_token %}
+
+                {{ form.as_p }}
+
+                <div class="flex justify-center items-center">
+                    <button class="px-4 py-2 rounded-md outline-none bg-primary_red text-gray-100">Create Series</button>
+                </div>
+
+            </form>
+        </div>
+
+    </section>
+
+{% endblock content %}

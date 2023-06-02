@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Create Movie
+{% endblock title %}
+
+{% block content %}
+    {% include 'partials/navbar.html' %}
+
+    <main class="bg-primary_black min-h-screen w-full">
+        <div class="container mx-auto px-4 py-16">
+            <h2 class="text-gray-200 text-2xl font-medium mb-6">Create Movie</h2>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <label class="block text-gray-200 text-sm font-medium mb-2" for="title">
+                            Title
+                        </label>
+                        <input class="form-input rounded-md w-full" id="title" name="title" type="text" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-200 text-sm font-medium mb-2" for="category">
+                            Category
+                        </label>
+                        <select class="form-select rounded-md w-full" id="category" name="category" required>
+                            {% for category in categories %}
+                                <option value="{{ category.pk }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-200 text-sm font-medium mb-2" for="description">
+                            Description
+                        </label>
+                        <textarea class="form-textarea rounded-md w-full" id="description" name="description" rows="4" required></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-gray-200 text-sm font-medium mb-2" for="flyer">
+                            Flyer
+                        </label>
+                        <input class="form-input rounded-md w-full" id="flyer" name="flyer" type="file" accept="image/*" required>
+                    </div>
+                </div>
+
+                <div class="mt-8">
+                    <button type="submit" class="btn btn-primary">Create Movie</button>
+                </div>
+            </form>
+
+        </div>
+    </main>
+{% endblock content %}

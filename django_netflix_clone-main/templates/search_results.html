@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Search results</h1>
+  {% if movies %}
+    <ul>
+      {% for movie in movies %}
+        <li><a href="{% url 'core:movie_detail' movie.pk %}">{{ movie.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No movies found.</p>
+  {% endif %}
+{% endblock %}

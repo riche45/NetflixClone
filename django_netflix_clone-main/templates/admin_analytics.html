@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Análisis de datos - {{ block.super }}
+{% endblock title %}
+
+{% block content %}
+    <div class="container my-4">
+        <h1 class="text-center mb-4">Análisis de datos</h1>
+        <div id="total-duration-chart" class="chart"></div>
+        <div id="average-duration-chart" class="chart"></div>
+    </div>
+
+    <script>
+        // AJAX request to get the chart data from Django view
+        $.ajax({
+            url: "{% url 'core:analytics-data' %}",
+            success: function(response) {
+                // Create the chart with the received data
+                Plotly.newPlot('total-duration-chart', response.data, response.layout);
+            }
+        });
+
+        $.ajax({
+            url: "{% url 'core:analytics-data' %}?type=average",
+            success: function(response) {
+                // Create the chart with the received data
+                Plotly.newPlot('average-duration-chart', response.data, response.layout);
+            }
+        });
+    </script>
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Search</h1>
+  <form action="{% url 'core:search' %}" method="get">
+    <input type="text" name="q" placeholder="Search movies">
+    <select name="category">
+      <option value="">All categories</option>
+      {% for category in categories %}
+        <option value="{{ category.id }}">{{ category.name }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">Search</button>
+  </form>
+{% endblock %}

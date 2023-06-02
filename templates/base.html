@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+
+        {% endblock title %}
+    </title>
+    <link rel="icon" type="image/png" href="{% static 'netflix.png' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %} ">
+    {% block others %}
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <form method="GET" action="{% url 'core:search' %}">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Buscar...">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+    {% endblock others %}
+</head>
+<body class='bg-black text-gray-100 font-primary'>
+
+    <nav>
+        <ul>
+            <li><a href="{% url 'core:index' %}">Inicio</a></li>
+            <li><a href="{% url 'core:search' %}">Buscar</a></li>
+            <li><a href="{% url 'core:admin_analytics' %}">Análisis de datos</a></li>
+        </ul>
+    </nav>
+
+    {% block content %}
+
+    {% endblock content %}
+
+    <script>
+        const nav = document.querySelector('nav')
+
+        document.addEventListener("scroll",e=>{
+
+            if(scrollY>100){
+                nav.classList.add('bg-gray-900')
+
+            }else{
+                nav.classList.remove('bg-gray-900')
+
+            }
+        })
+
+    </script>
+
+</body>
+</html>

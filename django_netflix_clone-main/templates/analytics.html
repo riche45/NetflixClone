@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Analytics
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Analytics</h1>
+                <h1>Duración total de películas y series vistas por usuario</h1>
+                {{ graph|safe }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h2>Total duration of movies and series watched by user</h2>
+                <canvas id="total_duration_chart" width="800" height="400"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var total_duration_chart = new Chart(document.getElementById("total_duration_chart"), {
+            type: 'bar',
+            data: {
+                labels: [{% for user_id in total_duration.index %}"{{ user_id }}", {% endfor %}],
+                datasets: [
+                    {
+                        label: "Movies duration",
+                        backgroundColor: "rgba(0,0,255,0.5)",
+                        data: [{% for duration in total_duration.movies_duration %}{{ duration }}, {% endfor %}]
+                    },
+                    {
+                        label: "Series duration",
+                        backgroundColor: "rgba(255,0,0,0.5)",
+                        data: [{% for duration in total_duration.series_duration %}{{ duration }}, {% endfor %}]
+                    }
+                ]
+            },
+            options: {
+                legend: {display: true},
+                title: {
+                    display: true,
+                    text: 'Total duration of movies and series watched by user'
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+{% endblock content %}

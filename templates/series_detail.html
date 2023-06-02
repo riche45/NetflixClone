@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{ series.poster.url }}" class="img-fluid" alt="{{ series.name }} poster">
+            </div>
+            <div class="col-md-8">
+                <h1>{{ series.name }}</h1>
+                <p>{{ series.description }}</p>
+                <p><strong>Categories:</strong>
+                {% for category in series.categories.all %}
+                    <span class="badge badge-primary">{{ category.name }}</span>
+                {% endfor %}
+                </p>
+                <p><strong>Release Date:</strong> {{ series.release_date }}</p>
+                <p><strong>Rating:</strong> {{ series.rating }}</p>
+                {% if request.user.is_authenticated %}
+                    {% if series in request.user.profile.favorites.all %}
+                        <a href="{% url 'core:toggle_favorite' series.id %}" class="btn btn-danger">Remove from favorites</a>
+                    {% else %}
+                        <a href="{% url 'core:toggle_favorite' series.id %}" class="btn btn-primary">Add to favorites</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        <h2 class="mt-5">Seasons:</h2>
+        <ul>
+            {% for season in series.seasons.all %}
+                <li>
+                    <a href="{% url 'core:season_detail' series.id season.id %}">Season {{ season.number }}</a>
+                </li>
+            {% empty %}
+                <p>No seasons found.</p>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
