@@ -1,3 +1,76 @@
+STACK TECNOLOGICO
+Stack tecnológico para la plataforma de Netflix clone:
+
+Front-end:
+•	HTML/CSS/JavaScript
+•	Bootstrap
+•	Django templates
+Back-end:
+•	Python
+•	Django
+•	SQlite
+
+Se podría considerar algunas alternativas para el stack tecnológico:
+Front-end:
+•	Vue.js
+•	Angular
+•	Ember.js
+Back-end:
+•	Ruby on Rails
+•	Express.js
+•	Laravel
+ESQUEMA BASE DE DATOS
+
+La base de datos se puede expresar con los siguientes ejemplos:
+tablas: "core_category", "core_movie" y "core_series".
+
+La tabla "core_category" tiene los campos "id" (clave primaria), "name", "description" y "slug".
+
+La tabla "core_movie" tiene los campos "id" (clave primaria), "title", "description", "created", "uuid", "type", "flyer", "age_limit", "duration", "cover_image", "category_id" y "slug". La columna "category_id" es una referencia a la tabla "core_category".
+
+La tabla "core_series" tiene los campos "id", "title", "num_seasons", "num_episodes", "episode_duration", "description", "created", "uuid", "type", "flyer", "age_limit", "cover_image", "category_id" y "videos". La columna "category_id" es una referencia a la tabla "core_category".
+
+Esquema:
+
+Tabla "core_category"
+•	id (int, clave primaria)
+•	name (varchar(100), no nulo)
+•	description (texto)
+•	slug (varchar(50), no nulo, único)
+
+Tabla "core_movie"
+•	id (int, clave primaria)
+•	title (varchar(225), no nulo)
+•	description (texto, no nulo)
+•	created (datetime, no nulo)
+•	uuid (char(32), no nulo, único)
+•	type (varchar(15), no nulo)
+•	flyer (varchar(100))
+•	age_limit (varchar(5))
+•	duration (int sin signo, no nulo)
+•	cover_image (varchar(100), no nulo)
+•	category_id (int, referencia a "core_category"."id" en caso de existir)
+•	slug (varchar(50), no nulo, único)
+
+Tabla "core_series"
+•	id (int)
+•	title (varchar(200), no nulo)
+•	num_seasons (int, no nulo, por defecto 3)
+•	num_episodes (int, no nulo, por defecto 8)
+•	episode_duration (int, no nulo, por defecto 60)
+•	description (texto, no nulo)
+•	created (datetime, no nulo)
+•	uuid (UUID, no nulo, único)
+•	type (varchar(10), no nulo)
+•	flyer (varchar(100))
+•	age_limit (varchar(5))
+•	cover_image (varchar(100))
+•	category_id (int, referencia a "core_category"."id" en caso de existir)
+•	videos (texto)
+
+
+
+
 MANUAL DE INSTALACION
 Requisitos previos
 •	Python 3.5 o superior
@@ -42,3 +115,4 @@ Información adicional
 •	La página de administración se encuentra en http://localhost:8000/admin y se puede acceder con las credenciales del superusuario creado en el paso 3.
 •	Para actualizar la base de datos con los cambios de modelos, utilice el comando "python manage.py makemigrations" seguido de "python manage.py migrate".
 •	Si está utilizando una base de datos diferente a SQLite, es posible que deba instalar el controlador correspondiente para Python (por ejemplo, para MySQL: pip install mysqlclient).
+
