@@ -20,7 +20,7 @@ Back-end:
 •	Express.js
 •	Laravel
 
-![ESQUEMA BASE DE DATOS
+ESQUEMA BASE DE DATOS
 
 La base de datos se puede expresar con los siguientes ejemplos:
 tablas: "core_category", "core_movie" y "core_series".
@@ -30,7 +30,7 @@ La tabla "core_category" tiene los campos "id" (clave primaria), "name", "descri
 La tabla "core_movie" tiene los campos "id" (clave primaria), "title", "description", "created", "uuid", "type", "flyer", "age_limit", "duration", "cover_image", "category_id" y "slug". La columna "category_id" es una referencia a la tabla "core_category".
 
 La tabla "core_series" tiene los campos "id", "title", "num_seasons", "num_episodes", "episode_duration", "description", "created", "uuid", "type", "flyer", "age_limit", "cover_image", "category_id" y "videos". La columna "category_id" es una referencia a la tabla "core_category".
-](Captura de pantalla 123931.png)
+
 
 Esquema:
 
@@ -74,10 +74,10 @@ la fecha de creación, el identificador único (UUID), el tipo de película (pel
 la imagen de portada y la categoría. 
 La categoría es una clave foránea que se relaciona con la clase Category que también está definida en el modelo.
 
-![la aplicación web de la forma más sencilla para el usuario y lo más práctica para nosotros en su manejo y obtención de datos importante para la empresa.
-Hay que tener en cuenta la Experiencia del Usuario la cual se caracteriza por sencillez, claridad, intuición.](Captura de pantalla 120756.png) 
+la aplicación web de la forma más sencilla para el usuario y lo más práctica para nosotros en su manejo y obtención de datos importante para la empresa.
+Hay que tener en cuenta la Experiencia del Usuario la cual se caracteriza por sencillez, claridad, intuición. 
 
-![Además, para garantizar que los niños tengan acceso solo a contenido apropiado para su edad, la plataforma cuenta con un sistema de control 
+Además, para garantizar que los niños tengan acceso solo a contenido apropiado para su edad, la plataforma cuenta con un sistema de control 
 parental que restringe el acceso a ciertos contenidos.
 Para acceder al contenido para niños, se debe activar la opción "Kids" en la interfaz de usuario. Al hacerlo, se mostrará solo el contenido 
 que ha sido etiquetado como apto para niños, y se restringirá el acceso a contenido que no cumpla con esta clasificación.
@@ -85,23 +85,23 @@ El control parental se implementa en la base de datos mediante el campo "age_lim
 Cuando se crea un nuevo contenido, se especifica la edad mínima recomendada para el contenido. Si la edad del usuario es menor que la edad 
 mínima, el contenido no estará disponible para ese usuario.
 También, se requiere que los padres o tutores configuren una contraseña de control parental para poder desbloquear el acceso a contenido 
-restringido. Esta contraseña se almacena de manera segura en la base de datos y se requiere para desbloquear el acceso al contenido restringido.](Captura de pantalla 142501.png) 
+restringido. Esta contraseña se almacena de manera segura en la base de datos y se requiere para desbloquear el acceso al contenido restringido. 
 
-![La vista ProfileCreate maneja las solicitudes GET y POST para crear un nuevo perfil asociado con el usuario autenticado. 
+La vista ProfileCreate maneja las solicitudes GET y POST para crear un nuevo perfil asociado con el usuario autenticado. 
 Se utiliza un formulario ProfileForm para validar la entrada de usuario y crear el perfil en la base de datos. Si el formulario es válido, 
 se redirige al usuario a la página de visualización de películas para el perfil recién creado. Si el formulario no es válido, 
-se muestra el formulario con los errores correspondientes.](Captura de pantalla 124503.png)
+se muestra el formulario con los errores correspondientes.
 
-![Para obtener estos datos y generar las gráficas correspondientes, se ha implementado la función analytics_view()que utiliza la función 
+Para obtener estos datos y generar las gráficas correspondientes, se ha implementado la función analytics_view()que utiliza la función 
 calculate_total_duration()para obtener los datos y la librería Plotly para generar la gráfica en formato HTML, que se muestra en la plantilla. 
 Además, se ha implementado la vista admin_analytics()que muestra las mismas gráficas para el administrador y le permite comparar los datos de 
-los usuarios.](graf datos 072518.png)
+los usuarios.
 
-![En este proyecto se ha utilizado la librería Matplotlib para generar gráficas que indiquen el tiempo total que han empleado los usuarios en 
+En este proyecto se ha utilizado la librería Matplotlib para generar gráficas que indiquen el tiempo total que han empleado los usuarios en 
 ver películas y series. Para ello, se ha creado un módulo llamado analytics.py, que contiene tres funciones principales: 
 •	get_watched_data(): Obtiene los datos de las películas y series vistas por los usuarios desde la base de datos y los almacena en un DataFrame de pandas.
 •	calcule_total_duration(): A partir de los datos obtenidos en la función anterior, calcula la duración total de las películas y series vistas por cada usuario.
-•	plot_total_duration(): Crea un gráfico de barras utilizando los datos obtenidos en la función anterior.](matplotlib 072410.png)
+•	plot_total_duration(): Crea un gráfico de barras utilizando los datos obtenidos en la función anterior.
 
 
 En resumen, la utilización de Matplotlib en el proyecto ha permitido generar gráficas que visualizan de manera clara y sencilla la duración 
