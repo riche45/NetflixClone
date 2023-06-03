@@ -1,9 +1,9 @@
 
-# Netflix Clone
+    Netflix Clone
 
 Este proyecto es un clon de Netflix, una plataforma de transmisión de contenido multimedia. El objetivo de este proyecto es recrear la funcionalidad básica de Netflix, permitiendo a los usuarios registrarse, iniciar sesión, ver películas y series, y gestionar sus perfiles.
 
-## Stack Tecnológico
+    Stack Tecnológico
 
 El stack tecnológico utilizado en esta plataforma de Netflix clone es el siguiente:
 
@@ -29,7 +29,7 @@ Back-end:
 - Express.js
 - Laravel
 
-## Esquema de la Base de Datos
+     Esquema de la Base de Datos
 
 La base de datos se puede representar con los siguientes ejemplos de tablas: "core_category", "core_movie" y "core_series".
 
@@ -94,7 +94,7 @@ plot_total_duration(): Crea un gráfico de barras utilizando los datos obtenidos
 
 En resumen, el uso de Matplotlib en el proyecto permite generar gráficos claros y directos que visualizan la duración total de las películas y series vistas por los usuarios. Estos gráficos son de gran utilidad para el análisis de datos y permiten al administrador compar
 
-## Manual de Instalación
+     Manual de Instalación
 
 Requisitos previos:
 - Python 3.5 o superior
