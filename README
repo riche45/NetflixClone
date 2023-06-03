@@ -1,157 +1,155 @@
-##STACK TECNOLOGICO
-#Stack tecnológico para la plataforma de Netflix clone:
 
-#Front-end:
-•	HTML/CSS/JavaScript
-•	Bootstrap
-•	Django templates
-Back-end:
-•	Python
-•	Django
-•	SQlite
+# Netflix Clone
 
-Se podría considerar algunas alternativas para el stack tecnológico:
+Este proyecto es un clon de Netflix, una plataforma de transmisión de contenido multimedia. El objetivo de este proyecto es recrear la funcionalidad básica de Netflix, permitiendo a los usuarios registrarse, iniciar sesión, ver películas y series, y gestionar sus perfiles.
+
+## Stack Tecnológico
+
+El stack tecnológico utilizado en esta plataforma de Netflix clone es el siguiente:
+
 Front-end:
-•	Vue.js
-•	Angular
-•	Ember.js
+- HTML/CSS/JavaScript
+- Bootstrap
+- Django templates
+
 Back-end:
-•	Ruby on Rails
-•	Express.js
-•	Laravel
+- Python
+- Django
+- SQLite
 
-##ESQUEMA BASE DE DATOS
+También se pueden considerar algunas alternativas para el stack tecnológico:
 
-La base de datos se puede expresar con los siguientes ejemplos:
-tablas: "core_category", "core_movie" y "core_series".
+Front-end:
+- Vue.js
+- Angular
+- Ember.js
 
-La tabla "core_category" tiene los campos "id" (clave primaria), "name", "description" y "slug".
+Back-end:
+- Ruby on Rails
+- Express.js
+- Laravel
 
-La tabla "core_movie" tiene los campos "id" (clave primaria), "title", "description", "created", "uuid", "type", "flyer", "age_limit", "duration", "cover_image", "category_id" y "slug". La columna "category_id" es una referencia a la tabla "core_category".
+## Esquema de la Base de Datos
 
-La tabla "core_series" tiene los campos "id", "title", "num_seasons", "num_episodes", "episode_duration", "description", "created", "uuid", "type", "flyer", "age_limit", "cover_image", "category_id" y "videos". La columna "category_id" es una referencia a la tabla "core_category".
+La base de datos se puede representar con los siguientes ejemplos de tablas: "core_category", "core_movie" y "core_series".
 
+La tabla "core_category" tiene los siguientes campos: "id" (clave primaria), "name", "description" y "slug".
 
-#Esquema:
+La tabla "core_movie" tiene los siguientes campos: "id" (clave primaria), "title", "description", "created", "uuid", "type", "flyer", "age_limit", "duration", "cover_image", "category_id" y "slug". La columna "category_id" es una referencia a la tabla "core_category".
 
-Tabla "core_category"
-•	id (int, clave primaria)
-•	name (varchar(100), no nulo)
-•	description (texto)
-•	slug (varchar(50), no nulo, único)
+La tabla "core_series" tiene los siguientes campos: "id", "title", "num_seasons", "num_episodes", "episode_duration", "description", "created", "uuid", "type", "flyer", "age_limit", "cover_image", "category_id" y "videos". La columna "category_id" es una referencia a la tabla "core_category".
 
-Tabla "core_movie"
-•	id (int, clave primaria)
-•	title (varchar(225), no nulo)
-•	description (texto, no nulo)
-•	created (datetime, no nulo)
-•	uuid (char(32), no nulo, único)
-•	type (varchar(15), no nulo)
-•	flyer (varchar(100))
-•	age_limit (varchar(5))
-•	duration (int sin signo, no nulo)
-•	cover_image (varchar(100), no nulo)
-•	category_id (int, referencia a "core_category"."id" en caso de existir)
-•	slug (varchar(50), no nulo, único)
+Esquema:
 
-Tabla "core_series"
-•	id (int)
-•	title (varchar(200), no nulo)
-•	num_seasons (int, no nulo, por defecto 3)
-•	num_episodes (int, no nulo, por defecto 8)
-•	episode_duration (int, no nulo, por defecto 60)
-•	description (texto, no nulo)
-•	created (datetime, no nulo)
-•	uuid (UUID, no nulo, único)
-•	type (varchar(10), no nulo)
-•	flyer (varchar(100))
-•	age_limit (varchar(5))
-•	cover_image (varchar(100))
-•	category_id (int, referencia a "core_category"."id" en caso de existir)
+Tabla "core_category":
+- id (int, clave primaria)
+- name (varchar(100), no nulo)
+- description (texto)
+- slug (varchar(50), no nulo, único)
 
-La clase Movie es un modelo de Django que representa una película. Tiene varios campos, incluyendo el título, la descripción,
-la fecha de creación, el identificador único (UUID), el tipo de película (película o serie), la clasificación por edades, la duración,
-la imagen de portada y la categoría. 
-La categoría es una clave foránea que se relaciona con la clase Category que también está definida en el modelo.
+Tabla "core_movie":
+- id (int, clave primaria)
+- title (varchar(225), no nulo)
+- description (texto, no nulo)
+- created (datetime, no nulo)
+- uuid (char(32), no nulo, único)
+- type (varchar(15), no nulo)
+- flyer (varchar(100))
+- age_limit (varchar(5))
+- duration (int sin signo, no nulo)
+- cover_image (varchar(100), no nulo)
+- category_id (int, referencia a "core_category"."id" en caso de existir)
+- slug (varchar(50), no nulo, único)
 
-la aplicación web de la forma más sencilla para el usuario y lo más práctica para nosotros en su manejo y obtención de datos importante para la empresa.
-Hay que tener en cuenta la Experiencia del Usuario la cual se caracteriza por sencillez, claridad, intuición. 
+Tabla "core_series":
+- id (int)
+- title (varchar(200), no nulo)
+- num_seasons (int, no nulo, por defecto 3)
+- num_episodes (int, no nulo, por defecto 8)
+- episode_duration (int, no nulo, por defecto 60)
+- description (texto, no nulo)
+- created (datetime, no nulo)
+- uuid (UUID, no nulo, único)
+- type (varchar(10), no nulo)
+- flyer (varchar(100))
+- age_limit (varchar(5))
+- cover_image (varchar(100))
+- category_id (int, referencia a "core_category"."id" en caso de existir)
 
-Además, para garantizar que los niños tengan acceso solo a contenido apropiado para su edad, la plataforma cuenta con un sistema de control 
-parental que restringe el acceso a ciertos contenidos.
-Para acceder al contenido para niños, se debe activar la opción "Kids" en la interfaz de usuario. Al hacerlo, se mostrará solo el contenido 
-que ha sido etiquetado como apto para niños, y se restringirá el acceso a contenido que no cumpla con esta clasificación.
-El control parental se implementa en la base de datos mediante el campo "age_limit" en la tabla de películas y series. 
-Cuando se crea un nuevo contenido, se especifica la edad mínima recomendada para el contenido. Si la edad del usuario es menor que la edad 
-mínima, el contenido no estará disponible para ese usuario.
-También, se requiere que los padres o tutores configuren una contraseña de control parental para poder desbloquear el acceso a contenido 
-restringido. Esta contraseña se almacena de manera segura en la base de datos y se requiere para desbloquear el acceso al contenido restringido. 
+La clase Movie es un modelo de Django que representa una película. Tiene varios campos, incluyendo el título, la descripción, la fecha de creación, el identificador único (UUID), el tipo de película (película o serie), la calificación de edad, la duración, la imagen de portada y la categoría. La categoría es una clave externa que se relaciona con la clase Categoría, que también está definida en el modelo.
 
-La vista ProfileCreate maneja las solicitudes GET y POST para crear un nuevo perfil asociado con el usuario autenticado. 
-Se utiliza un formulario ProfileForm para validar la entrada de usuario y crear el perfil en la base de datos. Si el formulario es válido, 
-se redirige al usuario a la página de visualización de películas para el perfil recién creado. Si el formulario no es válido, 
-se muestra el formulario con los errores correspondientes.
+La aplicación tiene como objetivo proporcionar una experiencia web práctica y fácil de usar, centrándose en la simplicidad, la claridad y la intuición.
 
-Para obtener estos datos y generar las gráficas correspondientes, se ha implementado la función analytics_view()que utiliza la función 
-calculate_total_duration()para obtener los datos y la librería Plotly para generar la gráfica en formato HTML, que se muestra en la plantilla. 
-Además, se ha implementado la vista admin_analytics()que muestra las mismas gráficas para el administrador y le permite comparar los datos de 
-los usuarios.
+Para garantizar que los niños tengan acceso solo a contenido apropiado para su edad, la plataforma incluye un sistema de control parental que restringe el acceso a ciertos contenidos. Para acceder al contenido infantil, los usuarios deben activar la opción "Niños" en la interfaz de usuario. Cuando está activado, solo se mostrará el contenido etiquetado como apto para niños y se restringirá el acceso al contenido que no cumpla con esta clasificación. El sistema de control parental se implementa en la base de datos a través del campo "age_limit" en las tablas de películas y series. Al crear contenido nuevo, se especifica la edad mínima recomendada para ese contenido. Si la edad del usuario es inferior a la edad mínima, el contenido no estará disponible para ese usuario. Además, los padres o tutores deben establecer una contraseña de control parental para desbloquear el acceso a contenido restringido. Esta contraseña se almacena de forma segura en la base de datos y se requiere para desbloquear el acceso a contenido restringido.
 
-En este proyecto se ha utilizado la librería Matplotlib para generar gráficas que indiquen el tiempo total que han empleado los usuarios en 
-ver películas y series. Para ello, se ha creado un módulo llamado analytics.py, que contiene tres funciones principales: 
-•	get_watched_data(): Obtiene los datos de las películas y series vistas por los usuarios desde la base de datos y los almacena en un DataFrame de pandas.
-•	calcule_total_duration(): A partir de los datos obtenidos en la función anterior, calcula la duración total de las películas y series vistas por cada usuario.
-•	plot_total_duration(): Crea un gráfico de barras utilizando los datos obtenidos en la función anterior.
+La vista ProfileCreate maneja las solicitudes GET y POST para crear un nuevo perfil asociado con el usuario autenticado. Utiliza un ProfileForm para validar la entrada del usuario y crear el perfil en la base de datos. Si el formulario es válido, se redirige al usuario a la página de visualización de películas para el perfil recién creado. Si el formulario no es válido, se muestra el formulario con los errores correspondientes.
 
+Para obtener los datos necesarios y generar los gráficos correspondientes, se ha implementado la función analytics_view(). Utiliza la función compute_total_duration() para recuperar los datos y la biblioteca Plotly para generar el gráfico con formato HTML que se muestra en la plantilla. Además, se implementó la vista admin_analytics(), que muestra los mismos gráficos para el administrador y les permite comparar los datos de los usuarios.
 
-En resumen, la utilización de Matplotlib en el proyecto ha permitido generar gráficas que visualizan de manera clara y sencilla la duración 
-total de películas y series vistas por los usuarios. Estas son de gran utilidad para el análisis de datos y permiten al administrador
-comparar gráficamente la actividad de los usuarios y tomar decisiones informadas para mejorar la experiencia del usuario en la plataforma.
+Matplotlib se ha utilizado en este proyecto para generar gráficos que indican el tiempo total que los usuarios han dedicado a ver películas y series. Para ello se ha creado un módulo denominado analytics.py, que contiene tres funciones principales:
 
+get_watched_data(): recupera datos de películas y series vistas por los usuarios de la base de datos y los almacena en un marco de datos de pandas.
+calcule_total_duration(): En base a los datos obtenidos en la función anterior, calcula la duración total de las películas y series vistas por cada usuario.
+plot_total_duration(): Crea un gráfico de barras utilizando los datos obtenidos en la función anterior.
 
+En resumen, el uso de Matplotlib en el proyecto permite generar gráficos claros y directos que visualizan la duración total de las películas y series vistas por los usuarios. Estos gráficos son de gran utilidad para el análisis de datos y permiten al administrador compar
 
-##MANUAL DE INSTALACION
-Requisitos previos
-•	Python 3.5 o superior
-•	Pip (administrador de paquetes de Python)
-•	Git (opcional)
-Configuración inicial
-1.	Clone el repositorio de GitHub del proyecto utilizando Git o descargando el archivo ZIP.
-2.	Cree un entorno virtual utilizando virtualenv o venv:
-python3 -m venv myenv 
-3.	Active el entorno virtual:
-source myenv/bin/activate 
-4.	Instale las dependencias del proyecto con Pip:
-pip install -r requirements.txt 
-5.	Configure la base de datos en settings.py. Por defecto, el proyecto utiliza una base de datos SQLite. Si desea utilizar una base de datos diferente, deberá actualizar esta configuración. A continuación se muestra un ejemplo de configuración:
+## Manual de Instalación
 
-DATABASES = { 
-'default': { 
-'ENGINE': 'django.db.backends.mysql', 
-'NAME': 'database_name', 
-'USER': 'database_user', 
-'PASSWORD': 'database_password', 
-'HOST': '127.0.0.1', 
-'PORT': '3306', 
-} 
-} 
+Requisitos previos:
+- Python 3.5 o superior
+- Pip (administrador de paquetes de Python)
+- Git (opcional)
 
-#Ejecución del proyecto
+Configuración inicial:
+1. Clona el repositorio de GitHub del proyecto utilizando Git o descargando el archivo ZIP.
+2. Crea un entorno virtual utilizando virtualenv o venv:
+```shell
+python3 -m venv myenv
+```
+3. Activa el entorno virtual:
+```shell
+source myenv/bin/activate
+```
+4. Instala las dependencias del proyecto con Pip:
+```shell
+pip install -r requirements.txt
+```
+5. Configura la base de datos en settings.py. Por defecto, el proyecto utiliza una base de datos SQLite. Si deseas utilizar una base de datos diferente, deberás actualizar esta configuración. A continuación se muestra un ejemplo de configuración:
 
-1.	Asegúrese de que el entorno virtual esté activado:
-source myenv/bin/activate 
-2.	Cree las tablas en la base de datos:
-python manage.py migrate 
-3.	Cree un superusuario para acceder al panel de administración:
-python manage.py createsuperuser 
-4.	Ejecute el servidor de desarrollo:
-python manage.py runserver 
-5.	Abra un navegador web y vaya a http://localhost:8000 para ver el proyecto en ejecución.
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'nombre_base_datos',
+        'USER': 'usuario_base_datos',
+        'PASSWORD': 'contraseña_base_datos',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
+```
 
+Ejecución del proyecto:
+1. Asegúrate de que el entorno virtual esté activado:
+```shell
+source myenv/bin/activate
+```
+2. Crea las tablas en la base de datos:
+```shell
+python manage.py migrate
+```
+3. Crea un superusuario para acceder al panel de administración:
+```shell
+python manage.py createsuperuser
+```
+4. Ejecuta el servidor de desarrollo:
+```shell
+python manage.py runserver
+```
+5. Abre un navegador web y ve a http://localhost:8000 para ver el proyecto en ejecución.
 
-#Información adicional
-
-•	La página de administración se encuentra en http://localhost:8000/admin y se puede acceder con las credenciales del superusuario creado en el paso 3.
-•	Para actualizar la base de datos con los cambios de modelos, utilice el comando "python manage.py makemigrations" seguido de "python manage.py migrate".
-•	Si está utilizando una base de datos diferente a SQLite, es posible que deba instalar el controlador correspondiente para Python (por ejemplo, para MySQL: pip install mysqlclient).
-
+Información adicional:
+- La página de administración se encuentra en http://localhost:8000/admin y se puede acceder con las credenciales del superusuario creado en el paso 3.
+- Para actualizar la base de datos con los cambios de modelos, utiliza el comando "python manage.py makemigrations" seguido de "python manage.py migrate".
+- Si estás utilizando una base de datos diferente a SQLite, es posible que necesites instalar el controlador correspondiente para Python (por ejemplo, para MySQL: pip install mysqlclient).
