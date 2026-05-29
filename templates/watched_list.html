@@ -9,7 +9,7 @@
             {% if movies %}
             {% for movie in movies %}
             <div class="relative">
-                <a href="{% url 'core:movie_detail' pk=movie.pk %}">
+                <a href="{% url 'core:show_det' movie_id=movie.uuid %}">
                     <img class="w-full h-full rounded-md object-cover" src="{{ movie.poster.url }}" alt="{{ movie.title }}" />
                     <div class="absolute bottom-0 left-0 w-full h-full rounded-md bg-gradient-to-t from-black to-transparent"></div>
                     <div class="absolute bottom-0 left-0 w-full h-full p-4">

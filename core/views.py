@@ -47,9 +47,8 @@ class ProfileCreate(View):
     def post(self, request, *args, **kwargs):
         form = ProfileForm(request.POST or None)
         if form.is_valid():
-            profile = form.save(commit=False)
-            profile.user = request.user
-            profile.save()
+            profile = form.save()
+            request.user.profiles.add(profile)
             return redirect(f'/watch/{profile.uuid}')
         return render(request, 'profileCreate.html', {
             'form': form
@@ -183,40 +182,15 @@ class SeriesListView(ListView):
 @login_required
 def mark_watched(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
-    Watched.objects.create(user=request.user, movie=movie)
-    return redirect('movie_detail', pk=pk)
+    Watched.objects.get_or_create(user=request.user, movie=movie)
+    return redirect('core:show_det', movie_id=movie.uuid)
 
 
 @login_required
 def mark_favorite(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
-    Favorite.objects.create(user=request.user, movie=movie)
-    return redirect('movie_detail', pk=pk)
-
-
-@login_required
-def watched_list(request):
-    watched_movies = Watched.objects.filter(user=request.user)
-    return render(request, 'watched_list.html', {'watched_movies': watched_movies})
-
-
-@login_required
-def favorite_list(request):
-    favorite_movies = Favorite.objects.filter(user=request.user)
-    return render(request, 'favorite_list.html', {'favorite_movies': favorite_movies})
-
-
-@login_required
-def movie_detail(request, pk):
-    movie = get_object_or_404(Movie, pk=pk)
-    is_favorite = Favorite.objects.filter(user=request.user, movie=movie).exists()
-    is_watched = Watched.objects.filter(user=request.user, movie=movie).exists()
-    context = {
-        'movie': movie,
-        'is_favorite': is_favorite,
-        'is_watched': is_watched,
-    }
-    return render(request, 'core/movie_detail.html', context)
+    Favorite.objects.get_or_create(user=request.user, movie=movie)
+    return redirect('core:show_det', movie_id=movie.uuid)
 
 
 @login_required
@@ -227,7 +201,7 @@ def series_detail(request, pk):
         'series': series,
         'seasons': seasons,
     }
-    return render(request, 'core/series_detail.html', context)
+    return render(request, 'series_detail.html', context)
 
 
 @login_required
@@ -238,7 +212,7 @@ def season_detail(request, pk):
         'season': season,
         'episodes': episodes,
     }
-    return render(request, 'core/season_detail.html', context)
+    return render(request, 'season_detail.html', context)
 
 
 @login_required
@@ -247,53 +221,30 @@ def episode_detail(request, pk):
     context = {
         'episode': episode,
     }
-    return render(request, 'core/episode_detail.html', context)
-
-
-@login_required
-def movie_list(request):
-    movies = Movie.objects.all()
-    context = {
-        'movies': movies,
-    }
-    return render(request, 'core/movie_list.html', context)
-
-
-@login_required
-def series_list(request):
-    series = Series.objects.all()
-    context = {
-        'series': series,
-    }
-    return render(request, 'core/series_list.html', context)
+    return render(request, 'episode_detail.html', context)
 
 
 @login_required
 def watched_list(request):
-    movies_watched = Watched.objects.filter(user=request.user, movie__isnull=False)
-    series_watched = Watched.objects.filter(user=request.user, series__isnull=False)
-    context = {
-        'movies_watched': movies_watched,
-        'series_watched': series_watched,
-    }
-    return render(request, 'core/watched_list.html', context)
+    watched = Watched.objects.filter(user=request.user, movie__isnull=False)
+    movies = [w.movie for w in watched]
+    return render(request, 'watched_list.html', {'movies': movies})
 
 
 @login_required
 def favorite_list(request):
-    movies_favorite = Favorite.objects.filter(user=request.user, movie__isnull=False)
-    series_favorite = Favorite.objects.filter(user=request.user, series__isnull=False)
-    context = {
-        'movies_favorite': movies_favorite,
-        'series_favorite': series_favorite,
-    }
-    return render(request, 'core/favorite_list.html', context)
+    favorites = Favorite.objects.filter(user=request.user, movie__isnull=False)
+    movies = [f.movie for f in favorites]
+    return render(request, 'favorite_list.html', {'movies': movies})
 
 
 @login_required
 def toggle_favorite(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
-    favorite, created = Favorite.objects.get
+    favorite, created = Favorite.objects.get_or_create(user=request.user, movie=movie)
+    if not created:
+        favorite.delete()
+    return redirect('core:show_det', movie_id=movie.uuid)
 
 
 class CategoryList(ListView):
@@ -389,4 +340,4 @@ def analytics_view(request):
 
 @login_required
 def admin_analytics(request):
-    return render(request, 'admin_analytics.html')
+    return analytics_view(request)

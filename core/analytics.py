@@ -4,13 +4,25 @@ import matplotlib.pyplot as plt
 
 
 def get_watched_data():
-    data = Watched.objects.all().values_list('user_id', 'movie__duration', 'series__total_duration', 'created_at')
-    df = pd.DataFrame(list(data), columns=['user_id', 'movie_duration', 'series_duration', 'created_at'])
+    data = Watched.objects.all().values_list(
+        'user_id',
+        'movie__duration',
+        'series__num_episodes',
+        'series__episode_duration',
+    )
+    df = pd.DataFrame(
+        list(data),
+        columns=['user_id', 'movie_duration', 'series_num_episodes', 'series_episode_duration'],
+    )
+    df = df.fillna(0)
+    df['series_duration'] = df['series_num_episodes'] * df['series_episode_duration']
     return df
 
 
 def calculate_total_duration():
     df = get_watched_data()
+    if df.empty:
+        return pd.DataFrame(columns=['movies_duration', 'series_duration'])
     total_duration = df.groupby('user_id').agg(
         movies_duration=('movie_duration', 'sum'),
         series_duration=('series_duration', 'sum')

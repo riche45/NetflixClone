@@ -61,11 +61,11 @@
                     Description
                 </h2>
                 <div class="flex space-x-4 mt-4">
-                    <form action="{% url 'mark_watched' pk=movie.pk %}" method="POST">
+                    <form action="{% url 'core:mark_watched' pk=movie.pk %}" method="POST">
                         {% csrf_token %}
                         <button type="submit" class="px-4 py-2 rounded-md bg-primary text-white">Marcar como vista</button>
                     </form>
-                    <form action="{% url 'mark_favorite' pk=movie.pk %}" method="POST">
+                    <form action="{% url 'core:mark_favorite' pk=movie.pk %}" method="POST">
                         {% csrf_token %}
                         <button type="submit" class="px-4 py-2 rounded-md border border-primary text-primary">Marcar como favorita</button>
                     </form>

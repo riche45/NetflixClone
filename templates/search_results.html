@@ -5,7 +5,7 @@
   {% if movies %}
     <ul>
       {% for movie in movies %}
-        <li><a href="{% url 'core:movie_detail' movie.pk %}">{{ movie.title }}</a></li>
+        <li><a href="{% url 'core:show_det' movie_id=movie.uuid %}">{{ movie.title }}</a></li>
       {% endfor %}
     </ul>
   {% else %}

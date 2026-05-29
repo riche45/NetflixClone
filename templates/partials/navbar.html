@@ -1,0 +1,15 @@
+{% load static %}
+<nav class="bg-black bg-opacity-75 text-white fixed w-full z-50">
+    <div class="flex items-center justify-between px-4 py-3">
+        <div class="flex items-center">
+            <a href="{% url 'core:index' %}" class="text-2xl font-bold text-red-600">NETFLIX</a>
+        </div>
+        <div class="flex items-center">
+            {% if user.is_authenticated %}
+                <a href="{% url 'account_logout' %}" class="bg-red-600 text-white px-4 py-2 rounded">Cerrar Sesión</a>
+            {% else %}
+                <a href="{% url 'account_login' %}" class="bg-red-600 text-white px-4 py-2 rounded">Iniciar Sesión</a>
+            {% endif %}
+        </div>
+    </div>
+</nav> 

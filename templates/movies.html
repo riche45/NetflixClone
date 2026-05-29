@@ -5,12 +5,12 @@
   <div class="container mx-auto px-4 py-16">
     <h2 class="text-gray-200 text-2xl font-medium mb-6">Movies List</h2>
 
-    <a href="{% url 'movie_create' %}" class="btn btn-primary">Create Movie</a>
+    <a href="{% url 'core:movie_create' %}" class="btn btn-primary">Create Movie</a>
 
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8">
       {% for movie in movies %}
         <div class="relative">
-          <a href="{% url 'core:movie_detail' pk=movie.pk %}">
+          <a href="{% url 'core:show_det' movie_id=movie.uuid %}">
             <img class="w-full h-full rounded-md object-cover" src="{{ movie.image.url }}" alt="{{ movie.title }}" />
             <div class="absolute bottom-0 left-0 w-full h-full rounded-md bg-gradient-to-t from-black to-transparent"></div>
             <div class="absolute bottom-0 left-0 w-full h-full p-4">

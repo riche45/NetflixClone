@@ -8,7 +8,7 @@
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8">
       {% for serie in series %}
       <div class="relative">
-        <a href="{% url 'core:serie_detail' pk=serie.pk %}">
+        <a href="{% url 'core:series_detail' pk=serie.pk %}">
           <img class="w-full h-full rounded-md object-cover" src="{{ serie.image.url }}" alt="{{ serie.name }}" />
           <div class="absolute bottom-0 left-0 w-full h-full rounded-md bg-gradient-to-t from-black to-transparent"></div>
           <div class="absolute bottom-0 left-0 w-full h-full p-4">

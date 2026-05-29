@@ -29,7 +29,7 @@
         <ul>
             {% for season in series.seasons.all %}
                 <li>
-                    <a href="{% url 'core:season_detail' series.id season.id %}">Season {{ season.number }}</a>
+                    <a href="{% url 'core:season_detail' season.id %}">Season {{ season.number }}</a>
                 </li>
             {% empty %}
                 <p>No seasons found.</p>

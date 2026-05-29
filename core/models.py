@@ -1,9 +1,6 @@
 import uuid
-from django.contrib.auth.models import AbstractUser, User
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
-from django.core.management import call_command
-from django.db.models.signals import post_migrate
-from django.dispatch import receiver
 from django.conf import settings
 from django.urls import reverse
 from django.utils.text import slugify
@@ -22,8 +19,53 @@ MOVIE_TYPE = (
 )
 
 
+class CustomUserManager(BaseUserManager):
+    """Manager que usa el email como identificador en lugar del username."""
+
+    use_in_migrations = True
+
+    def _create_user(self, email, password, **extra_fields):
+        if not email:
+            raise ValueError('El email es obligatorio')
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+        return self._create_user(email, password, **extra_fields)
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('El superusuario debe tener is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('El superusuario debe tener is_superuser=True.')
+        return self._create_user(email, password, **extra_fields)
+
+
 class CustomUser(AbstractUser):
-    profiles = models.ManyToManyField('Profile')
+    email = models.EmailField(_('email address'), unique=True)
+    username = models.CharField(_('username'), max_length=150, blank=True)
+    first_name = models.CharField(_('first name'), max_length=30, blank=True)
+    last_name = models.CharField(_('last name'), max_length=150, blank=True)
+    profiles = models.ManyToManyField('Profile', blank=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    objects = CustomUserManager()
+
+    class Meta:
+        verbose_name = _('user')
+        verbose_name_plural = _('users')
+
+    def __str__(self):
+        return self.email
 
 
 class Profile(models.Model):
@@ -81,15 +123,15 @@ class Movie(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        if not self.category:
-            self.category = Category.objects.get(name='Drama')
+        if not self.category_id:
+            self.category, _created = Category.objects.get_or_create(name='Drama')
 
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('movie_detail', kwargs={'uuid': self.uuid})
+        return reverse('core:show_det', kwargs={'movie_id': self.uuid})
 
 
 class Series(models.Model):
@@ -111,8 +153,8 @@ class Series(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        if not self.category:
-            self.category = Category.objects.get(name='Drama')
+        if not self.category_id:
+            self.category, _created = Category.objects.get_or_create(name='Drama')
         super().save(*args, **kwargs)
 
 
@@ -163,56 +205,3 @@ class Favorite(models.Model):
 
     class Meta:
         unique_together = ('user', 'movie', 'series', 'season', 'episode')
-
-
-category, created = Category.objects.get_or_create(
-    name='Drama',
-    defaults={'description': 'This is a description for the Drama category'})
-
-if not created:
-    category.description = 'fiction and often by a tragic ending.'
-    category.save()
-
-movie = Movie.objects.create(
-    title='My Movie',
-    description='A description',
-    type='single',
-    flyer='flyer.jpg',
-    age_limit='G',
-    duration=120,
-    cover_image='cover.jpg',
-    category=category
-)
-
-category, created = Category.objects.get_or_create(
-    name='Drama',
-    defaults={'description': 'This is a description for the Drama category'})
-
-if not created:
-    category.description = 'fiction and often by a tragic ending.'
-    category.save()
-
-series = Series.objects.create(
-    title='My Series',
-    num_seasons=5,
-    num_episodes=10,
-    episode_duration=45,
-    description='A description',
-    type='Serie',
-    flyer='flyer.jpg',
-    age_limit='PG',
-    cover_image='cover.jpg',
-    category=category
-)
-
-
-@receiver(post_migrate)
-def add_category(sender, **kwargs):
-    from core.models import Category
-    category_slug = "Drama"
-    existing_categories = Category.objects.filter(slug=category_slug)
-    if existing_categories.exists():
-        print(f"Category '{existing_categories[0].name}' already exists")
-    else:
-        new_category = Category.objects.create(slug=category_slug, name="Drama")
-        print(f"Category '{new_category.name}' created.")
